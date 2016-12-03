@@ -24,4 +24,12 @@ void editE(int id);
 void insertR();
 void selectR();
 void deleteR(int id);
+<<<<<<< HEAD
 void editR(int id);
+
+void verL();
+void Prestamo();
+void verP();
+=======
+void editR(int id);
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90

@@ -280,6 +280,20 @@ void menuA()
 	switch(opcion)
 	{
 		case 'a': 
+<<<<<<< HEAD
+			printf("\n\tConsulta Libros\n"); 
+			verL();
+			break;
+
+		case 'b': 
+			printf("\n\tSolicita un Prestamos\n"); 
+			Prestamo();
+			break;
+
+		case 'c': 
+			printf("\n\tConsulta tus prestamos\n");
+			verP();
+=======
 			printf("Select Books\n"); 
 			break;
 
@@ -289,6 +303,7 @@ void menuA()
 
 		case 'c': 
 			printf("consulta prestamos\n");
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 			break;
 
 		default: 

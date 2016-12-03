@@ -469,7 +469,11 @@ void insertP()
 	}
 	getchar();
 	
+<<<<<<< HEAD
+	printf("Escribe el id de Alumnos : ");
+=======
 	printf("Escribe tu id de Alumnos : ");
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 	fgets(&idUsers,60,stdin);
 	strtok(&idUsers, "\n");
 
@@ -479,10 +483,23 @@ void insertP()
 	a=atol(&idLibros);
 
 	cantidad=checkP(a);
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 
 	if(cantidad==0)
 	{
 		printf("Este Libro Ya esta Prestado, pide otro");
+<<<<<<< HEAD
+		Prestamo();
+	}
+	else
+	{
+		cantidad2=cantidad-1;
+		editP(a,cantidad2);
+		sprintf(q,"insert into Prestamo (Alumnos_idAlumnos,Libros_idLibros,FechaP,FechaE) values ('%s','%s',NOW(), DATE_ADD(NOW(), INTERVAL 1 WEEK))",&idUsers,&idLibros);
+=======
 		insertP();
 	}
 	else
@@ -490,6 +507,7 @@ void insertP()
 		sprintf(q,"insert into Prestamo (Alumnos_idAlumnos,Libros_idLibros,FechaP,FechaE) values ('%s','%s',NOW(), DATE_ADD(NOW(), INTERVAL 1 WEEK))",&idUsers,&idLibros);
 		cantidad2=cantidad-1;
 		editP(a,cantidad2);
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 	}
 
 	//send SQL query 
@@ -502,15 +520,24 @@ void insertP()
 	int id = mysql_insert_id(conn);
 	printf("\nEl Prestamo %i se creo Satisfactoriamente\n",id);
 	printf("Recuerda guardar bien el id, es lo que te permitira saber cuando regresarlo\n");
+<<<<<<< HEAD
+	res = mysql_use_result(conn);
+	menu();
+=======
 	menu();
 	res = mysql_use_result(conn);
 
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 }
 
 
 int checkP(int id) 
 {
+<<<<<<< HEAD
+	int a=0;
+=======
 	int a;
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 	conn = mysql_init(NULL);
 
 	/* Connect to database */
@@ -531,11 +558,18 @@ int checkP(int id)
 
 
 	res = mysql_use_result(conn);
+<<<<<<< HEAD
+	 //output table name 
+	while ((row = mysql_fetch_row(res)) != NULL)
+	{
+		a= atol(row[3]);
+=======
 
 	 //output table name 
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
 		a= atol(row[4]);
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 		return a;
 	}
 	 
@@ -898,4 +932,145 @@ void editR(int id)
 	 menu();
 	mysql_free_result(res);
 	mysql_close(conn);
+<<<<<<< HEAD
+}
+
+void verL() 
+{
+	char *Nombre="";
+	char *idUsers="";
+
+	conn = mysql_init(NULL);
+
+	/* Connect to database */
+	if (!mysql_real_connect(conn, server,
+			user, password, database, 0, NULL, 0)) {
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(1);
+	}
+
+	sprintf(q,"Select Libros.idLibros,Libros.Nombre,Libros.Autor,Libros.Cantidad,Rama.Nombre From Libros inner join Rama On Libros.Rama_idRama=Rama.idRama");
+
+	/* send SQL query */
+	if (mysql_query(conn,q ) )
+	{
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(1);
+	}
+
+
+	res = mysql_use_result(conn);
+
+	 //output table name 
+	printf("\n---------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("| %15s | %60s | %15s | %8s | %15s |\n","id","Nombre","Autor","Cantidad","Rama");
+	while ((row = mysql_fetch_row(res)) != NULL)
+	{
+		printf("---------------------------------------------------------------------------------------------------------------------------------\n");
+		printf("| %15s | %60s | %15s | %8s | %15s |\n", row[0],row[1],row[2],row[3],row[4]);
+	}
+	 
+	 menuA();
+	mysql_free_result(res);
+	mysql_close(conn);
+}
+
+void Prestamo() 
+{
+	char *idLibros="";
+	char *idUsers="";
+	int cantidad;
+	int cantidad2;
+	int a;
+	conn = mysql_init(NULL);
+
+	/* Connect to database */
+	if (!mysql_real_connect(conn, server,user, password, database, 0, NULL, 0)) {
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(1);
+	}
+	getchar();
+	
+	printf("Escribe tu id de Alumnos : ");
+	fgets(&idUsers,60,stdin);
+	strtok(&idUsers, "\n");
+
+	printf("Escribe el id del Libro que desees pedir prestado : ");
+	fgets(&idLibros,60,stdin);
+	strtok(&idLibros, "\n");
+	a=atol(&idLibros);
+
+	cantidad=checkP(a);
+	
+
+	if(cantidad==0)
+	{
+		printf("Este Libro Ya esta Prestado, pide otro");
+		Prestamo();
+	}
+	else
+	{
+		cantidad2=cantidad-1;
+		editP(a,cantidad2);
+		sprintf(q,"insert into Prestamo (Alumnos_idAlumnos,Libros_idLibros,FechaP,FechaE) values ('%s','%s',NOW(), DATE_ADD(NOW(), INTERVAL 1 WEEK))",&idUsers,&idLibros);
+	}
+
+	//send SQL query 
+	if (mysql_query(conn,q ) )
+	{
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(1);	
+	}
+	
+	int id = mysql_insert_id(conn);
+	printf("\nEl Prestamo %i se creo Satisfactoriamente\n",id);
+	printf("Recuerda guardar bien el id, es lo que te permitira saber cuando regresarlo\n");
+	res = mysql_use_result(conn);
+	menuA();
+}
+
+void verP() 
+{
+	char *Nombre="";
+	char *idUsers[60];
+
+	conn = mysql_init(NULL);
+
+	/* Connect to database */
+	if (!mysql_real_connect(conn, server,
+			user, password, database, 0, NULL, 0)) {
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(1);
+	}
+	getchar();
+
+	printf("Escribe tu id de Usuarios: ");
+	fgets(&idUsers,60,stdin);
+	strtok(&idUsers, "\n");
+
+	sprintf(q,"Select Prestamo.Alumnos_idAlumnos,Alumnos.Nombre,Prestamo.Libros_idLibros,Libros.Nombre,Prestamo.FechaP ,Prestamo.FechaE  from Prestamo inner join Alumnos on Prestamo.Alumnos_idAlumnos=Alumnos.idAlumnos inner join Libros on Prestamo.Libros_idLibros=Libros.idLibros WHERE Prestamo.Alumnos_idAlumnos= '%s'",&idUsers);
+
+	/* send SQL query */
+	if (mysql_query(conn,q ) )
+	{
+		fprintf(stderr, "%s\n", mysql_error(conn));
+		exit(1);
+	}
+
+
+	res = mysql_use_result(conn);
+
+	 //output table name 
+	printf("\n------------------------------------------------------------------------------------------------------------------------------------------\n");
+	printf("| %5s | %15s | %5s | %60s | %17s | %17s |\n","idA","Alumno","idL","Libro","Fecha de Prestamo","Fecha de Entrega");
+	while ((row = mysql_fetch_row(res)) != NULL)
+	{
+		printf("------------------------------------------------------------------------------------------------------------------------------------------\n");
+		printf("| %5s | %15s | %5s | %60s | %17s | %17s |\n", row[0],row[1],row[2],row[3],row[4],row[5]);
+	}
+	 menuA();
+	mysql_free_result(res);
+	mysql_close(conn);
+=======
+>>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 }
