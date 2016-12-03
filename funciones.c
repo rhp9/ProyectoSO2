@@ -469,11 +469,7 @@ void insertP()
 	}
 	getchar();
 	
-<<<<<<< HEAD
 	printf("Escribe el id de Alumnos : ");
-=======
-	printf("Escribe tu id de Alumnos : ");
->>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 	fgets(&idUsers,60,stdin);
 	strtok(&idUsers, "\n");
 
@@ -483,15 +479,12 @@ void insertP()
 	a=atol(&idLibros);
 
 	cantidad=checkP(a);
-<<<<<<< HEAD
-	
-=======
->>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
+
 
 	if(cantidad==0)
 	{
 		printf("Este Libro Ya esta Prestado, pide otro");
-<<<<<<< HEAD
+
 		Prestamo();
 	}
 	else
@@ -499,15 +492,8 @@ void insertP()
 		cantidad2=cantidad-1;
 		editP(a,cantidad2);
 		sprintf(q,"insert into Prestamo (Alumnos_idAlumnos,Libros_idLibros,FechaP,FechaE) values ('%s','%s',NOW(), DATE_ADD(NOW(), INTERVAL 1 WEEK))",&idUsers,&idLibros);
-=======
+
 		insertP();
-	}
-	else
-	{
-		sprintf(q,"insert into Prestamo (Alumnos_idAlumnos,Libros_idLibros,FechaP,FechaE) values ('%s','%s',NOW(), DATE_ADD(NOW(), INTERVAL 1 WEEK))",&idUsers,&idLibros);
-		cantidad2=cantidad-1;
-		editP(a,cantidad2);
->>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
 	}
 
 	//send SQL query 
@@ -520,24 +506,22 @@ void insertP()
 	int id = mysql_insert_id(conn);
 	printf("\nEl Prestamo %i se creo Satisfactoriamente\n",id);
 	printf("Recuerda guardar bien el id, es lo que te permitira saber cuando regresarlo\n");
-<<<<<<< HEAD
+
 	res = mysql_use_result(conn);
 	menu();
-=======
+
 	menu();
 	res = mysql_use_result(conn);
 
->>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
+
 }
 
 
 int checkP(int id) 
 {
-<<<<<<< HEAD
+
 	int a=0;
-=======
-	int a;
->>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
+
 	conn = mysql_init(NULL);
 
 	/* Connect to database */
@@ -558,19 +542,11 @@ int checkP(int id)
 
 
 	res = mysql_use_result(conn);
-<<<<<<< HEAD
-	 //output table name 
-	while ((row = mysql_fetch_row(res)) != NULL)
-	{
-		a= atol(row[3]);
-=======
 
 	 //output table name 
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
-		a= atol(row[4]);
->>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
-		return a;
+		a= atol(row[3]);
 	}
 	 
 }
@@ -932,7 +908,7 @@ void editR(int id)
 	 menu();
 	mysql_free_result(res);
 	mysql_close(conn);
-<<<<<<< HEAD
+
 }
 
 void verL() 
@@ -1071,6 +1047,5 @@ void verP()
 	 menuA();
 	mysql_free_result(res);
 	mysql_close(conn);
-=======
->>>>>>> 620d6a316a59674b900d55c1e4f63c5cf1404e90
+
 }
