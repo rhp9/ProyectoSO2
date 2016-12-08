@@ -265,8 +265,14 @@ void selectL()
 		fprintf(stderr, "%s\n", mysql_error(conn));
 		exit(1);
 	}
+	printf("\n\tEsta opcion te permite consultar libros por Rama\n");
 
-	sprintf(q,"Select Libros.idLibros,Libros.Nombre,Libros.Autor,Libros.Cantidad,Rama.Nombre From Libros inner join Rama On Libros.Rama_idRama=Rama.idRama");
+	getchar();
+	printf("Escribe el id de Rama: ");
+	fgets(&Nombre,60,stdin);
+	strtok(&Nombre, "\n");
+
+	sprintf(q,"Select Libros.idLibros,Libros.Nombre,Libros.Autor,Libros.Cantidad,Rama.Nombre From Libros inner join Rama On Libros.Rama_idRama=Rama.idRama WHERE Libros.Rama_idRama='%s'",&Nombre);
 
 	/* send SQL query */
 	if (mysql_query(conn,q ) )
@@ -280,11 +286,11 @@ void selectL()
 
 	 //output table name 
 	printf("\n---------------------------------------------------------------------------------------------------------------------------------\n");
-	printf("| %15s | %60s | %15s | %8s | %15s |\n","id","Nombre","Autor","Cantidad","Rama");
+	printf("| %3s | %20s | %20s | %8s | %10s |\n","id","Nombre","Autor","Cantidad","Rama");
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
 		printf("---------------------------------------------------------------------------------------------------------------------------------\n");
-		printf("| %15s | %60s | %15s | %8s | %15s |\n", row[0],row[1],row[2],row[3],row[4]);
+		printf("| %s | %s | %s | %8s | %s |\n", row[0],row[1],row[2],row[3],row[4]);
 	}
 	 
 	 menu();
@@ -547,6 +553,7 @@ int checkP(int id)
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
 		a= atol(row[3]);
+		return a;
 	}
 	 
 }
@@ -924,8 +931,14 @@ void verL()
 		fprintf(stderr, "%s\n", mysql_error(conn));
 		exit(1);
 	}
+	printf("\n\tEsta opcion te permite consultar libros por Rama\n");
 
-	sprintf(q,"Select Libros.idLibros,Libros.Nombre,Libros.Autor,Libros.Cantidad,Rama.Nombre From Libros inner join Rama On Libros.Rama_idRama=Rama.idRama");
+	getchar();
+	printf("Escribe el id de Rama: ");
+	fgets(&Nombre,60,stdin);
+	strtok(&Nombre, "\n");
+
+	sprintf(q,"Select Libros.idLibros,Libros.Nombre,Libros.Autor,Libros.Cantidad,Rama.Nombre From Libros inner join Rama On Libros.Rama_idRama=Rama.idRama WHERE Libros.Rama_idRama='%s'",&Nombre);
 
 	/* send SQL query */
 	if (mysql_query(conn,q ) )
@@ -939,11 +952,11 @@ void verL()
 
 	 //output table name 
 	printf("\n---------------------------------------------------------------------------------------------------------------------------------\n");
-	printf("| %15s | %60s | %15s | %8s | %15s |\n","id","Nombre","Autor","Cantidad","Rama");
+	printf("| %3s | %20s | %20s | %8s | %10s |\n","id","Nombre","Autor","Cantidad","Rama");
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
 		printf("---------------------------------------------------------------------------------------------------------------------------------\n");
-		printf("| %15s | %60s | %15s | %8s | %15s |\n", row[0],row[1],row[2],row[3],row[4]);
+		printf("| %s | %s | %s | %8s | %s |\n", row[0],row[1],row[2],row[3],row[4]);
 	}
 	 
 	 menuA();
@@ -971,6 +984,7 @@ void Prestamo()
 	fgets(&idUsers,60,stdin);
 	strtok(&idUsers, "\n");
 
+	getchar();
 	printf("Escribe el id del Libro que desees pedir prestado : ");
 	fgets(&idLibros,60,stdin);
 	strtok(&idLibros, "\n");
@@ -1038,11 +1052,11 @@ void verP()
 
 	 //output table name 
 	printf("\n------------------------------------------------------------------------------------------------------------------------------------------\n");
-	printf("| %5s | %15s | %5s | %60s | %17s | %17s |\n","idA","Alumno","idL","Libro","Fecha de Prestamo","Fecha de Entrega");
+	printf("| %5s | %15s | %5s | %35s | %10s | %10s |\n","idA","Alumno","idL","Libro","Fecha de Prestamo","Fecha de Entrega");
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
 		printf("------------------------------------------------------------------------------------------------------------------------------------------\n");
-		printf("| %5s | %15s | %5s | %60s | %17s | %17s |\n", row[0],row[1],row[2],row[3],row[4],row[5]);
+		printf("| %s | %s | %s | %s | %s | %s |\n", row[0],row[1],row[2],row[3],row[4],row[5]);
 	}
 	 menuA();
 	mysql_free_result(res);

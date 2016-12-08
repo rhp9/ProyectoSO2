@@ -97,7 +97,7 @@ void menu()
 	switch(opcion)
 	{
 		case 'a': 
-			printf("\n\tInserta Alumnos");
+			printf("\n\tInserta Alumnos\n");
 			insertA();
 			break;
 
@@ -260,8 +260,12 @@ void menu()
 							x=1;
 						}
 					}			
-		default: 
+		case 1: 
 			exit(1);
+
+		default:
+		 printf("\nEscribe una opcion validad\n");
+		 menu();	
 	}
 }
 
@@ -295,7 +299,11 @@ void menuA()
 
 			break;
 
-		default: 
+		case '1': 
 			exit(1);
+
+		default: 
+			printf("\nElige una opcion valida\n");
+			menuA();
 	}
 }		
